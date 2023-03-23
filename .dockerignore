@@ -1,0 +1,4 @@
+# Uncomment if pushing model to Replicate
+# lora-alpaca/checkpoint-*
+# *.json
+# *.ipynb
