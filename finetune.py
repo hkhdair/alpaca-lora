@@ -45,12 +45,12 @@ if ddp:
     GRADIENT_ACCUMULATION_STEPS = GRADIENT_ACCUMULATION_STEPS // world_size
 
 model = LlamaForCausalLM.from_pretrained(
-    "weights/llama-7b",
+    "weights",
     load_in_8bit=True,
     device_map=device_map,
 )
 tokenizer = LlamaTokenizer.from_pretrained(
-    "weights/tokenizer", add_eos_token=True
+    "weights", add_eos_token=True
 )
 
 model = prepare_model_for_int8_training(model)
