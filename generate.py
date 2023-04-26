@@ -15,11 +15,7 @@ LOAD_8BIT = False
 BASE_MODEL = "decapoda-research/llama-7b-hf"
 LORA_WEIGHTS = "tloen/alpaca-lora-7b"
 
-if torch.cuda.is_available():
-    device = "cuda"
-else:
-    device = "cpu"
-
+device = "cuda" if torch.cuda.is_available() else "cpu"
 try:
     if torch.backends.mps.is_available():
         device = "mps"

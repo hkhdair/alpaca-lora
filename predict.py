@@ -20,36 +20,28 @@ class Predictor(BasePredictor):
             "weights/tokenizer", local_files_only=True
         )
 
-    def predict(
-        self,
-        prompt: str = Input(description=f"Instruction to send to Alpaca."),
-        n: int = Input(
+    def predict(self, prompt: str = Input(description="Instruction to send to Alpaca."), n: int = Input(
             description="Number of output sequences to generate", default=1, ge=1, le=5
-        ),
-        total_tokens: int = Input(
+        ), total_tokens: int = Input(
             description="Maximum number of tokens for input + generation. A word is generally 2-3 tokens",
             ge=1,
             default=2000,
-        ),
-        temperature: float = Input(
+        ), temperature: float = Input(
             description="Adjusts randomness of outputs, greater than 1 is random and 0 is deterministic, 0.75 is a good starting value.",
             ge=0.01,
             le=5,
             default=0.75,
-        ),
-        top_p: float = Input(
+        ), top_p: float = Input(
             description="When decoding text, samples from the top p percentage of most likely tokens; lower to ignore less likely tokens",
             ge=0.01,
             le=1.0,
             default=1.0,
-        ),
-        repetition_penalty: float = Input(
+        ), repetition_penalty: float = Input(
             description="Penalty for repeated words in generated text; 1 is no penalty, values greater than 1 discourage repetition, less than 1 encourage it.",
             ge=0.01,
             le=5,
             default=1,
-        ),
-    ) -> List[str]:
+        )) -> List[str]:
         format_prompt = PROMPT.format_map({"instruction": prompt})
         input = self.tokenizer(format_prompt, return_tensors="pt").input_ids.to(
             self.device

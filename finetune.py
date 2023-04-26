@@ -139,10 +139,12 @@ trainer = transformers.Trainer(
         save_steps=200,
         output_dir=OUTPUT_DIR,
         save_total_limit=3,
-        load_best_model_at_end=True if VAL_SET_SIZE > 0 else False,
+        load_best_model_at_end=VAL_SET_SIZE > 0,
         ddp_find_unused_parameters=False if ddp else None,
     ),
-    data_collator=transformers.DataCollatorForLanguageModeling(tokenizer, mlm=False),
+    data_collator=transformers.DataCollatorForLanguageModeling(
+        tokenizer, mlm=False
+    ),
 )
 model.config.use_cache = False
 
